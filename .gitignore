@@ -1,0 +1,13 @@
+venv/
+__pycache__/
+*.pyc
+
+.ipynb_checkpoints/
+
+*.pkl
+*.npy
+
+.env
+
+data/processed/
+data/embeddings/

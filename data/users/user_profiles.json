@@ -1,0 +1,27 @@
+{
+    "shiva": {
+        "liked_movies": [
+            "Interstellar",
+            "Arrival",
+            "Predator"
+        ],
+        "disliked_movies": [
+            "Titanic"
+        ],
+        "favorite_genres": [
+            "sci-fri",
+            "action",
+            "thriller"
+        ],
+        "watch_history": [
+            "Interstellar",
+            "Arrival",
+            "Pacific Rim"
+        ],
+        "genre_profile": {
+            "Sci-Fi": 3,
+            "Action": 1,
+            "Thriller": 1
+        }
+    }
+}
