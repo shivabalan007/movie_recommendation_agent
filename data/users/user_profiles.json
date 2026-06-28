@@ -19,9 +19,11 @@
             "Pacific Rim"
         ],
         "genre_profile": {
-            "Sci-Fi": 3,
-            "Action": 1,
-            "Thriller": 1
+            "Adventure": 2,
+            "Drama": 2,
+            "Science Fiction": 3,
+            "Mystery": 1,
+            "Action": 1
         }
     }
 }

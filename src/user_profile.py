@@ -47,3 +47,8 @@ def get_user_summary(username):
 # add_to_history("shiva","Interstellar")
 # add_liked_movie("shiva","Interstellar")
 # add_disliked_movie("shiva","Titanic")
+if __name__ == "__main__":
+    print(get_user_summary("shiva"))
+
+
+# Main objective is to store user data and retrive info from user_profile.json file

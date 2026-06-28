@@ -15,15 +15,26 @@ movie_indices = pd.Series(
     index=latest_movies["title"]
 ).drop_duplicates()
 
-def recommend_semantic_movies(movie_name, num_recommendation=10):
+def recommend_semantic_movies(movie_name, num_recommendation=10):    
+    exact_match = None
     matches = []
+
     for title in movie_indices.index:
+
+        if title.lower() == movie_name.lower():
+            exact_match = title
+
         if movie_name.lower() in title.lower():
             matches.append(title)
-    if len(matches) == 0:
-        return ["Movie not found"]
 
-    matched_movie = matches[0]
+    if exact_match:
+        matched_movie = exact_match
+
+    elif matches:
+        matched_movie = matches[0]
+
+    else:
+        return []
 
     movie_index = movie_indices[matched_movie]
 
@@ -48,9 +59,10 @@ def recommend_semantic_movies(movie_name, num_recommendation=10):
     for movie in top_movies:
         row = latest_movies.iloc[movie[0]]
         recommendations.append({
-    "title": row["title"],
-    "rating": round(float(row["vote_average"]), 1),
-    "year": str(row["release_date"])[:4]
+        "title": row["title"],
+        "rating": round(float(row["vote_average"]), 1),
+        "year": str(row["release_date"])[:4],
+        "similarity_score": round(float(movie[1]), 3)
 })
 
 
@@ -86,3 +98,6 @@ def get_movie_details(movie_name):
         "rating": round(float(movie["vote_average"]), 1),
         "release_year": str(movie["release_date"])[:4]
     }
+
+
+# Main objective is to find movie with similar meanings from movie description/embedding is similar
