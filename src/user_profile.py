@@ -42,11 +42,6 @@ def get_user_summary(username):
 
     return profiles[username]
 
-#print(get_user_summary("shiva"))
-
-# add_to_history("shiva","Interstellar")
-# add_liked_movie("shiva","Interstellar")
-# add_disliked_movie("shiva","Titanic")
 if __name__ == "__main__":
     print(get_user_summary("shiva"))
 

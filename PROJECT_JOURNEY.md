@@ -114,6 +114,22 @@ MovieLens ratings dataset
 }
 ```
 
+### Flow
+
+Read ratings.csv
+        ↓
+Merge
+        ↓
+Pivot Table
+        ↓
+9719 × 610 Matrix
+        ↓
+Cosine Similarity for ALL movies
+        ↓
+9719 × 9719 Matrix = 94 Million similarity values
+        ↓
+Pandas DataFrame
+
 ### Why Built
 
 Learns from community behaviour instead of movie content.
@@ -126,6 +142,22 @@ Only MovieLens movies.
 
 Support larger datasets.
 
+---
+## collaborative_filter_v3.py
+
+### Purpose
+
+load movie_user_matrix.pkl and justt compute only one movie like 1 x 9719
+
+Import
+
+↓
+
+Load Model
+
+↓
+
+Inference
 ---
 
 ## hybrid_recommender.py

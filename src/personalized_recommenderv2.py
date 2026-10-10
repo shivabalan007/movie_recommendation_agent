@@ -1,6 +1,6 @@
-from user_profile import get_user_summary
-from semantic_recommender import recommend_semantic_movies
-from collaborative_filter_v2 import recommend_cf_movies
+from src.user_profile import get_user_summary
+from src.semantic_recommender import recommend_semantic_movies
+from src.collaborative_filter_v2 import recommend_cf_movies
 
 
 def recommend_for_user(username):

@@ -79,9 +79,6 @@ def search_movie(query):
 
 
 def get_movie_details(movie_name):
-    """
-    Returns movie details.
-    """
 
     movie = latest_movies[
         latest_movies["title"].str.lower() == movie_name.lower()

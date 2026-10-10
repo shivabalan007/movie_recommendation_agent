@@ -1,6 +1,6 @@
-from personalized_recommenderv2 import recommend_for_user
-from genre_service import get_movie_genres
-from user_profile import get_user_summary
+from src.personalized_recommenderv2 import recommend_for_user
+from src.genre_service import get_movie_genres
+from src.user_profile import get_user_summary
 
 
 def genre_rerank(recommendations, username):
