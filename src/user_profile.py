@@ -1,6 +1,6 @@
 import json 
 
-profile_path = r"C:\Dev\projects\movie_recommemdation_agent\data\users\user_profiles.json"
+profile_path = r"C:\Dev\projects\movie_recommendation_agent\data\users\user_profiles.json"
 
 def load_profiles():
     with open(profile_path,"r") as file:

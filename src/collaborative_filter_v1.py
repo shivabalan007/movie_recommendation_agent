@@ -3,7 +3,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 # Load data
 movie_ratings = pd.read_csv(
-    r"C:\Dev\projects\movie_recommemdation_agent\data\processed\movie_ratings.csv"
+    r"C:\Dev\projects\movie_recommendation_agent\data\processed\movie_ratings.csv"
 )
 
 # User-movie matrix

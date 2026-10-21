@@ -1,24 +1,55 @@
-from src.database.cache import cache_get, cache_set, cache_delete
+from src.database.cache import cache_get, cache_delete
+from src.semantic_recommender import get_movie_details
 
-key = "test:movie:interstellar"
-movie = {
-    "title": "Interstellar",
-    "year": 2014,
-    "rating": 8.5,
-}
+movie_name = "Interstellar"
+key = "movie_agent:details:"  # We'll inspect the actual key below.
 
-# Clear any old test value
-cache_delete(key)
+# Call once to populate the cache if needed
+first = get_movie_details(movie_name)
 
-# Cache miss
-print("Before caching:", cache_get(key))
+# Find the actual cached value by using the same key-generation logic
+import hashlib
+import json
 
-# Store a value with a 60-second TTL
-print("Cache write successful:", cache_set(key, movie, ttl=60))
+params = {"movie_name": movie_name.strip().casefold()}
+serialized = json.dumps(params, sort_keys=True, ensure_ascii=False)
+digest = hashlib.sha256(serialized.encode("utf-8")).hexdigest()
+key = f"movie_agent:details:{digest}"
 
-# Cache hit
-print("After caching:", cache_get(key))
+cached = cache_get(key)
 
-# Delete and verify
-print("Deleted:", cache_delete(key))
-print("After deletion:", cache_get(key))
+print("First result:", first)
+print("Redis cached value:", cached)
+print("Cache exists:", cached is not None)
+
+assert first == cached
+print("Cache verification passed.")
+
+
+
+
+# from src.database.cache import cache_get, cache_set, cache_delete
+
+# key = "test:movie:interstellar"
+# movie = {
+#     "title": "Interstellar",
+#     "year": 2014,
+#     "rating": 8.5,
+# }
+
+# # Clear any old test value
+# cache_delete(key)
+
+# # Cache miss
+# print("Before caching:", cache_get(key))
+
+# # Store a value with a 60-second TTL
+# print("Cache write successful:", cache_set(key, movie, ttl=60))
+
+# # Cache hit
+# print("After caching:", cache_get(key))
+
+# # Delete and verify
+# print("Deleted:", cache_delete(key))
+# print("After deletion:", cache_get(key))
+

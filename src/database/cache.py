@@ -13,8 +13,10 @@ def cache_get(key: str) -> Any | None:
         value = redis_client.get(key)
 
         if value is None:
+            logger.info("CACHE MISS: %s", key)
             return None
 
+        logger.info("CACHE HIT: %s", key)
         return json.loads(value)
 
     except Exception:

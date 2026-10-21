@@ -1,3 +1,5 @@
+import re 
+
 from langchain_core.messages import HumanMessage, AIMessage
 from src.agent.state import AgentState
 from src.agent.llm import llm
@@ -17,6 +19,17 @@ def understand_request(state: AgentState) -> AgentState:
 
     The LLM identifies intent,username,movie name,search query
     """
+
+    state["error"] = None
+    state["tool_result"] = None
+    state["tool_name"] = ""
+    state["search_results"] = []
+    state["movie_details"] = {}
+    state["recommendations"] = []
+
+    state["username"] = ""
+    state["movie_name"] = ""
+    state["query"] = ""
 
     user_input = state.get("user_input", "")
 
@@ -147,6 +160,65 @@ User request:
 
         elif key == "query":
             state["query"] = value
+
+    
+    # Normalize intent and recover missing fields.
+    user_text = user_input.strip()
+    lower_text = user_text.casefold()
+
+    valid_intents = {
+        "search",
+        "movie_details",
+        "semantic_recommendation",
+        "collaborative_recommendation",
+        "personalized_recommendation",
+        "genre_recommendation",
+        "unknown",
+    }
+
+    intent = state.get("intent", "").strip().lower()
+
+    if intent not in valid_intents:
+        intent = "unknown"
+
+    state["intent"] = intent
+
+    movie_name = state.get("movie_name", "").strip()
+    query = state.get("query", "").strip()
+
+    # Recover missing search query.
+    if intent == "search" and not query:
+        if movie_name:
+            state["query"] = movie_name
+        else:
+            cleaned = re.sub(
+                r"^(please\s+)?(search\s+for|find|search|look\s+for)\s+"
+                r"(movies?\s+)?(containing\s+|matching\s+)?",
+                "",
+                user_text,
+                flags=re.IGNORECASE,
+            ).strip(" .?!")
+
+            if cleaned:
+                state["query"] = cleaned
+
+    # Correct movie-details requests classified as searches.
+    if (
+        intent == "search"
+        and re.search(
+            r"\b(tell me about|details about|information about|"
+            r"movie details|describe)\b",
+            lower_text,
+        )
+    ):
+        state["intent"] = "movie_details"
+
+    # Debug output.
+    print("\n========== NORMALIZED REQUEST ==========")
+    print(f"intent: {state.get('intent', '')}")
+    print(f"username: {state.get('username', '')}")
+    print(f"movie_name: {state.get('movie_name', '')}")
+    print(f"query: {state.get('query', '')}")
 
     return state
 

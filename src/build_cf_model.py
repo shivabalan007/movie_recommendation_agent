@@ -5,11 +5,11 @@ import pandas as pd
 # Load datasets
 
 ratings = pd.read_csv(
-    r"C:\Dev\projects\movie_recommemdation_agent\data\raw\movie_lens_latest\ratings.csv"
+    r"C:\Dev\projects\movie_recommendation_agent\data\raw\movie_lens_latest\ratings.csv"
 )
 
 movies = pd.read_csv(
-    r"C:\Dev\projects\movie_recommemdation_agent\data\raw\movie_lens_latest\movies.csv"
+    r"C:\Dev\projects\movie_recommendation_agent\data\raw\movie_lens_latest\movies.csv"
 )
 
 # Merge ratings with movie titles
@@ -29,7 +29,7 @@ movie_user_matrix = movie_ratings.pivot_table(
 
 # Save artifacts
 
-MODEL_DIR = r"C:\Dev\projects\movie_recommemdation_agent\data\models"
+MODEL_DIR = r"C:\Dev\projects\movie_recommendation_agent\data\models"
 
 os.makedirs(
     MODEL_DIR,
